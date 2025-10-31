@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>BeShop</title>
+</head>
+<body>
+    <div class="home">
+        <!-- Banner Section -->
+        <div class="banner">
+            <!-- Navbar Section -->
+            <div class="navbar">
+                <img 
+                    src="Images/logo.png" 
+                    alt="logo" 
+                    class="logo"
+                >
+                <ul>
+                    <li>
+                        <a class="home-link" href="#">Home</a>
+                        <a href="#">For her</a>
+                        <a href="#">For him</a>
+                        <a href="#">About us</a>
+                        <a href="crud.html">CRUD</a>
+                        <a href="#">Contact us</a>
+                        <a href="#">Buy now</a>
+                        <a href="checkout.html">checkout</a>
+                    </li>
+                </ul>
+                <div class="nav-icons">
+                    <i class="fa-regular fa-user"></i>
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+            </div>
+            <!-- Banner-Content -->
+            <div class="banner-content">
+                <p class="banner-text">Style<br/>& Beauty</p>
+                <img 
+                    src="Images/bannerImg.png" 
+                    alt="banner-img" 
+                    class="banner-img"
+                >
+            </div>
+        </div>
+        <!-- PriceCut-Content -->
+        <div class="pricecut-content">
+            <div class="pricecut-content-img1">
+                <img 
+                    src="Images/cutprice.jpg" 
+                    alt="pricecut-img" 
+                    class="cutprice1-img"
+                >
+                <div class="pricecut-img1-txt">
+                    <p class="armani">ARMANI</p>
+                    <p class="spring">Spring<br/>Summer 14</p>
+                </div>
+            </div>
+            <div class="pricecut-content-img2">
+                <img 
+                    src="Images/cutprice2.jpg" 
+                    alt="pricecut-img" 
+                    class="cutprice1-img"
+                >
+                <div class="pricecut-img2-txt">
+                    <p class="armani">DOLCE & GABBANA</p>
+                    <p class="spring">Fall<br/>Winter 13/14</p>
+                </div>
+            </div>
+            <div class="pricecut-content-img3">
+                <img 
+                    src="Images/cutprice3.jpg" 
+                    alt="pricecut-img" 
+                    class="cutprice1-img"
+                >
+                <div class="pricecut-img3-txt">
+                    <p class="armani">SALE</p>
+                    <p class="spring">Prices cut<br/>Up to 70%</p>
+                </div>
+            </div>
+        </div>
+        <!-- PRODUCTS FOR HER-Content -->
+        <div class="products-for-her-content">
+            <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="currentColor" d="M11.166 23.963L22.36 17.5c1.43-.824 1.43-2.175 0-3L11.165 8.037c-1.43-.826-2.598-.15-2.598 1.5v12.926c0 1.65 1.17 2.326 2.598 1.5z"/></svg>
+                <p>New products for her</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="currentColor" d="M20.834 8.037L9.64 14.5c-1.43.824-1.43 2.175 0 3l11.194 6.463c1.43.826 2.598.15 2.598-1.5V9.537c0-1.65-1.17-2.326-2.598-1.5"/></svg>
+            </span>
+        </div>
+        <!-- Carousel Section -->
+        <div class="carousel-container">
+            <div class="carousel-wrapper">
+                <div class="carousel-track" id="carouselTrack">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <span class="sale-badge">ON SALE</span>
+                            <img src="Images/ForHer1.jpg" alt="Flying Ninja">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Woo Album # 1</div>
+                            <div class="product-price">
+                                <span class="original-price">£15.00</span>
+                                <span class="current-price">£12.00</span>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="Images/forHer2.jpg" alt="Ship Your Idea">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Woo Logo</div>
+                            <div class="product-price">
+                                <span class="regular-price">£15.00</span>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="Images/forHer3.jpg" alt="Woo Logo">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Woo Ninja</div>
+                            <div class="product-price">
+                                <span class="regular-price">£35.00</span>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="Images/forHer4.jpg" alt="Ninja Silhouette">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Premium Quality</div>
+                            <div class="product-price">
+                                <span class="regular-price">£35.00</span>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="Images/forHer5.jpg" alt="Product 5">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Flying Ninja</div>
+                            <div class="product-price">
+                                <span class="regular-price">£25.00</span>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="Images/forHer6.jpg" alt="Product 6">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Ship Your Idea</div>
+                            <div class="product-price">
+                                <span class="regular-price">£30.00</span>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="Images/forHer7.jpg" alt="Product 7">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Woo Logo</div>
+                            <div class="product-price">
+                                <span class="regular-price">£28.00</span>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="Images/forHer8.jpg" alt="Product 8">
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">Ninja Silhouette</div>
+                            <div class="product-price">
+                                <span class="regular-price">£32.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="carousel-dots" id="carouselDots"></div>
+        </div>
+        
+               <!-- PRODUCTS FOR HIM-Content -->
+               <div class="products-for-her-content">
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="currentColor" d="M11.166 23.963L22.36 17.5c1.43-.824 1.43-2.175 0-3L11.165 8.037c-1.43-.826-2.598-.15-2.598 1.5v12.926c0 1.65 1.17 2.326 2.598 1.5z"/></svg>
+                    <p>New products for him</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path fill="currentColor" d="M20.834 8.037L9.64 14.5c-1.43.824-1.43 2.175 0 3l11.194 6.463c1.43.826 2.598.15 2.598-1.5V9.537c0-1.65-1.17-2.326-2.598-1.5"/></svg>
+                </span>
+            </div>
+
+            <!-- 2nd Carousel Section -->
+            <div class="carousel-container">
+                <div class="carousel-wrapper">
+                    <div class="carousel-track" id="carouselTrack2">
+                        <div class="product-card">
+                            <div class="product-image">
+                                <span class="sale-badge">ON SALE</span>
+                                <img src="Images/forHim1.jpg" alt="Flying Ninja">
+                            </div>
+                            <div class="product-info">
+                                <div class="product-name">Woo Logo</div>
+                                <div class="product-price">
+                                    <span class="original-price">£15.00</span>
+                                    <span class="current-price">£12.00</span>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="Images/forHim2.jpg" alt="Ship Your Idea">
+                            </div>
+                            <div class="product-info">
+                                <div class="product-name">Premium Quality</div>
+                                <div class="product-price">
+                                    <span class="regular-price">£15.00</span>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="Images/forHim3.jpg" alt="Woo Logo">
+                            </div>
+                            <div class="product-info">
+                                <div class="product-name">Ship Your Idea</div>
+                                <div class="product-price">
+                                    <span class="regular-price">£35.00</span>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="Images/forHim4.jpg" alt="Ninja Silhouette">
+                            </div>
+                            <div class="product-info">
+                                <div class="product-name">Ninja Silhouette</div>
+                                <div class="product-price">
+                                    <span class="regular-price">£35.00</span>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="Images/forHim5.jpg" alt="Product 5">
+                            </div>
+                            <div class="product-info">
+                                <div class="product-name">Woo Ninja</div>
+                                <div class="product-price">
+                                    <span class="regular-price">£25.00</span>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="Images/forHim6.jpg" alt="Product 6">
+                            </div>
+                            <div class="product-info">
+                                <div class="product-name">Happy Ninja</div>
+                                <div class="product-price">
+                                    <span class="regular-price">£30.00</span>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="Images/forHim7.jpg" alt="Product 7">
+                            </div>
+                            <div class="product-info">
+                                <div class="product-name">Patient Ninja</div>
+                                <div class="product-price">
+                                    <span class="regular-price">£28.00</span>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="Images/forHim8.jpg" alt="Product 8">
+                            </div>
+                            <div class="product-info">
+                                <div class="product-name">Happy Ninja</div>
+                                <div class="product-price">
+                                    <span class="regular-price">£32.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="carousel-dots" id="carouselDots2"></div>
+            </div>
+
+        <!-- Brand Section -->
+        <section class="brands-section">
+            <div class="brands-container">
+                <div class="brand-item">
+                    <img src="Images/client_1.png" alt="Zeisson">
+                </div>
+                <div class="brand-item">
+                    <img src="Images/client_2.png" alt="Excerpt">
+                </div>
+                <div class="brand-item">
+                    <img src="Images/client_3.png" alt="Folive">
+                </div>
+                <div class="brand-item">
+                    <img src="Images/client_4.png" alt="Koparu">
+                </div>
+                <div class="brand-item">
+                    <img src="Images/client_5.png" alt="Sohau">
+                </div>
+                <div class="brand-item">
+                    <img src="Images/client_6.png" alt="Barook">
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer Section -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>About us</h3>
+                    <p>Curabitur et ligula. Ut molestie a, ultricies porta urna. Vestibulum commodo volutpat a, convallis. Phasellus fermentum in, dolor. Pellentesque facilisis. Nulla imperdiet sit amet magna. Vestibulum dapibus, mauris nec malesuada fames ac turpis velit, rhoncus eu luctus et ac, laoreet enim.</p>
+                </div>
+    
+                <div class="footer-column">
+                    <h3>Our mission</h3>
+                    <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisl elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet. Sed odio imperdiet nisi. Proin condimentum fermentum nunc. Etiam pharetra, erat sed fermentum feugiat, velit mauris.</p>
+                </div>
+    
+                <div class="footer-column">
+                    <h3>Shortcut links</h3>
+                    <div class="shortcut-links-grid">
+                        <ul class="footer-links">
+                            <li><a href="#">Velit mauris</a></li>
+                            <li><a href="#">Entum feuis</a></li>
+                            <li><a href="#">Aliquam massa</a></li>
+                            <li><a href="#">Egestas quam</a></li>
+                        </ul>
+                        <ul class="footer-links">
+                            <li><a href="#">Aenean ligula</a></li>
+                            <li><a href="#">Dapibus at dolor</a></li>
+                            <li><a href="#">Molestie id</a></li>
+                            <li><a href="#">Vestibulum</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="footer-bottom">
+                <div class="copyright">
+                    © 2025 Betheme by <a href="#">Muffin group</a> | All Rights Reserved | Powered by <a href="#">WordPress</a>
+                </div>
+    
+                <div class="social-icons">
+                    <a href="#" aria-label="Skype"><i class="fab fa-skype"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#" aria-label="Vimeo"><i class="fab fa-vimeo-v"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="Flickr"><i class="fab fa-flickr"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+    
+                <a href="#" class="scroll-top" aria-label="Scroll to top">
+                    <i class="fas fa-chevron-up"></i>
+                </a>
+            </div>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
