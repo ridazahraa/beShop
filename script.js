@@ -26,6 +26,7 @@ function initCarousel(trackId, dotsId) {
         for (let i = 0; i < totalPages; i++) {
             const dot = document.createElement('div');
             dot.className = 'dot';
+            console.log("i");
             if (i === 0) dot.classList.add('active');
             dot.addEventListener('click', () => goToSlide(i));
             dotsContainer.appendChild(dot);
