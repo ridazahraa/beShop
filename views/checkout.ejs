@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/checkout.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/validation.js"></script>
+</head>
+
+<body>
+    <%- include('partials/header') %>
+    
+    <!-- Progress Bar -->
+    <div class="checkout-progress-wrapper">
+        <div class="checkout-progress-bar">
+            <div class="progress-step-item completed">
+                <span class="progress-step-number">1</span>
+                <span class="progress-step-label">Order Preview</span>
+            </div>
+            <div class="progress-connector"></div>
+            <div class="progress-step-item active">
+                <span class="progress-step-number">2</span>
+                <span class="progress-step-label">Checkout</span>
+            </div>
+            <div class="progress-connector"></div>
+            <div class="progress-step-item">
+                <span class="progress-step-number">3</span>
+                <span class="progress-step-label">Confirmation</span>
+            </div>
+        </div>
+    </div>
+
+    <main class="checkout-container">
+        <div class="checkout-content">
+            <!-- Delivery Address Section -->
+            <section class="checkout-section">
+                <h2 class="section-title">Delivery Address</h2>
+                <!-- Update form with validation classes -->
+                <form id="checkoutForm" class="needs-validation" novalidate action="/checkout" method="POST">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label for="fullName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="fullName" name="fullName" required
+                                minlength="3">
+                            <div class="invalid-feedback">
+                                Please enter your full name (at least 3 characters)
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                            <div class="invalid-feedback">
+                                Please enter a valid email address
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="phone" class="form-label">Phone</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" required>
+                            <div class="invalid-feedback">
+                                Please enter a valid phone number (min 10 digits)
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="address" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="address" name="address" required>
+                            <div class="invalid-feedback">
+                                Please enter your address
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="city" class="form-label">City</label>
+                            <input type="text" class="form-control" id="city" name="city" required>
+                            <div class="invalid-feedback">
+                                Please enter your city
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="postalCode" class="form-label">Postal Code</label>
+                            <input type="text" class="form-control" id="postalCode" name="postalCode" required>
+                            <div class="invalid-feedback">
+                                Please enter a valid postal code (4-6 digits)
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="country" class="form-label">Country</label>
+                            <select class="form-select" id="country" name="country" required>
+                                <option value="">Choose...</option>
+                                <option value="LK">Sri Lanka</option>
+                                <option value="IN">India</option>
+                                <option value="PK">Pakistan</option>
+                                <option value="BD">Bangladesh</option>
+                                <option value="NP">Nepal</option>
+                                <option value="MV">Maldives</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a country
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Method Section -->
+                    <div class="payment-section">
+                        <h3 class="section-subtitle">Payment Method</h3>
+                        <div class="payment-methods">
+                        <div class="form-check payment-method-card">
+                            <input type="radio" class="form-check-input" name="payment" id="card" value="card" required>
+                            <label class="form-check-label" for="card">
+                                <i class="fas fa-credit-card"></i>
+                                <span>Credit/Debit Card</span>
+                            </label>
+                        </div>
+
+                        <div class="form-check payment-method-card">
+                            <input type="radio" class="form-check-input" name="payment" id="cod" value="cod">
+                            <label class="form-check-label" for="cod">
+                                <i class="fas fa-money-bill-wave"></i>
+                                <span>Cash On Delivery</span>
+                            </label>
+                        </div>
+                        <div class="invalid-feedback d-block">Please select a payment method</div>
+
+                        <!-- Card fields with validation -->
+                        <div id="cardFields" class="card-fields" style="display:none;">
+                            <div class="mb-3">
+                                <label for="cardNumber" class="form-label">Card Number</label>
+                                <input type="text" class="form-control" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456">
+                                <div class="invalid-feedback"></div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="expiry" class="form-label">Expiry Date</label>
+                                    <input type="text" class="form-control" id="expiry" name="expiry" placeholder="MM/YY">
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                                <div class="col-6">
+                                    <label for="cvv" class="form-label">CVV</label>
+                                    <input type="text" class="form-control" id="cvv" name="cvv" placeholder="123">
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add terms checkbox -->
+                    <div class="form-check mb-3 mt-4">
+                        <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
+                        <label class="form-check-label" for="terms">
+                            I agree to the <a href="#" class="text-primary">terms and conditions</a>
+                        </label>
+                        <div class="invalid-feedback">
+                            You must agree to the terms and conditions
+                        </div>
+                    </div>
+
+                    <!-- Hidden field to preserve coupon code -->
+                    <% if (typeof couponApplied !== 'undefined' && couponApplied && typeof couponCode !== 'undefined') { %>
+                    <input type="hidden" name="coupon" value="<%= couponCode %>">
+                    <% } %>
+                </form>
+            </section>
+
+            <!-- Order Summary Section -->
+            <section class="checkout-section">
+                <h2 class="section-title">Order Items</h2>
+                <% if (cart && cart.length > 0) { %>
+                <div class="order-items">
+                    <% cart.forEach(item => { %>
+                    <div class="order-item">
+                        <div class="item-image">
+                            <% if (item.image) { %>
+                                <img src="<%= item.image %>" alt="<%= item.name %>">
+                            <% } else { %>
+                                <i class="fas fa-box" style="font-size: 40px; color: #999;"></i>
+                            <% } %>
+                        </div>
+                        <div class="item-details">
+                            <h3 class="item-name"><%= item.name %></h3>
+                            <p class="item-seller">Sold by: BeShop</p>
+                            <div class="item-price">
+                                <span class="current-price">$<%= parseFloat(item.price || 0).toFixed(2) %></span>
+                            </div>
+                            <div class="item-quantity">
+                                Quantity: <%= item.quantity || 1 %>
+                            </div>
+                        </div>
+                    </div>
+                    <% }); %>
+                </div>
+                <% } else { %>
+                <div class="alert alert-warning">
+                    <i class="fas fa-shopping-cart"></i> Your cart is empty. <a href="/cart">View Cart</a>
+                </div>
+                <% } %>
+            </section>
+        </div>
+
+        <!-- Order Summary Sidebar -->
+        <aside class="order-summary">
+            <h2 class="summary-title">Order Summary</h2>
+            <div class="price-details">
+                <div class="price-row">
+                    <span>Items (<%= cart && cart.length ? cart.length : 0 %>)</span>
+                    <span>$<%= typeof subtotal !== 'undefined' ? subtotal : '0.00' %></span>
+                </div>
+                <% if (typeof couponApplied !== 'undefined' && couponApplied) { %>
+                <div class="price-row" style="color: #28a745;">
+                    <span>Discount (SAVE10 - 10%)</span>
+                    <span>-$<%= typeof discountAmount !== 'undefined' ? discountAmount : '0.00' %></span>
+                </div>
+                <% } %>
+                <div class="price-row">
+                    <span>Delivery Fee</span>
+                    <span>$<%= typeof deliveryFee !== 'undefined' ? deliveryFee : '10.00' %></span>
+                </div>
+                <div class="price-row">
+                    <span>Tax (5%)</span>
+                    <span>$<%= typeof tax !== 'undefined' ? tax : '0.00' %></span>
+                </div>
+                <div class="price-row total">
+                    <span>Total</span>
+                    <span>$<%= typeof grandTotal !== 'undefined' ? grandTotal : '0.00' %></span>
+                </div>
+            </div>
+
+            <div class="promo-code-section">
+                <form action="/checkout" method="GET" class="promo-form">
+                    <div class="promo-input-group">
+                        <input type="text" name="coupon" class="promo-input" placeholder="Enter promo code (e.g., SAVE10)" 
+                               value="<%= typeof couponCode !== 'undefined' && couponCode ? couponCode : '' %>">
+                        <button type="submit" class="promo-btn">
+                            <i class="fas fa-tag"></i> Apply
+                        </button>
+                    </div>
+                </form>
+                <% if (typeof couponError !== 'undefined' && couponError) { %>
+                <div class="promo-message error">
+                    <i class="fas fa-exclamation-circle"></i> <%= couponError %>
+                </div>
+                <% } %>
+                <% if (typeof couponApplied !== 'undefined' && couponApplied) { %>
+                <div class="promo-message success">
+                    <i class="fas fa-check-circle"></i> Coupon applied! You saved $<%= typeof discountAmount !== 'undefined' ? discountAmount : '0.00' %>
+                </div>
+                <% } %>
+            </div>
+
+            <div class="delivery-info">
+                <p><i class="fas fa-truck"></i> Delivery by <%= new Date(Date.now() + 7*24*60*60*1000).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) %></p>
+            </div>
+
+            <!-- Update the place order button -->
+            <button type="submit" form="checkoutForm" class="btn-place-order">
+                <i class="fas fa-lock"></i> Place Order Securely
+            </button>
+
+            <div class="security-notice">
+                <p><i class="fas fa-lock"></i> Your personal information is secure with us</p>
+            </div>
+        </aside>
+    </main>
+
+    <script>
+        // Show card fields when credit card is selected
+        document.addEventListener('DOMContentLoaded', function() {
+            const cardRadio = document.getElementById('card');
+            const codRadio = document.getElementById('cod');
+            const cardFields = document.getElementById('cardFields');
+            
+            function toggleCardFields() {
+                if (cardRadio && cardRadio.checked) {
+                    cardFields.style.display = 'block';
+                } else {
+                    cardFields.style.display = 'none';
+                }
+            }
+            
+            if (cardRadio && codRadio && cardFields) {
+                cardRadio.addEventListener('change', toggleCardFields);
+                codRadio.addEventListener('change', toggleCardFields);
+                
+                // Check initial state
+                toggleCardFields();
+            }
+        });
+    </script>
+</body>
+
+</html>

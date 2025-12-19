@@ -1,0 +1,142 @@
+<div class="top-bar">
+    <h1><i class="fas fa-edit"></i> Edit Product</h1>
+    <div class="actions">
+        <a href="/admin/products" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Products
+        </a>
+    </div>
+</div>
+
+<% if (message) { %>
+    <div class="alert alert-<%= messageType %>">
+        <%= message %>
+    </div>
+<% } %>
+
+<div class="content-box">
+    <style>
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+        }
+
+        .form-actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .help-text {
+            font-size: 11px;
+            color: #666;
+            margin-top: 3px;
+        }
+
+        .current-image {
+            margin-top: 10px;
+        }
+
+        .current-image img {
+            max-width: 200px;
+            border: 1px solid #ccc;
+        }
+    </style>
+
+    <form action="/admin/products/edit/<%= product._id %>" method="POST">
+        <div class="form-group">
+            <label for="name">Product Name *</label>
+            <input type="text" id="name" name="name" required value="<%= product.name %>">
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description"><%= product.description || '' %></textarea>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="category">Category *</label>
+                <select id="category" name="category" required>
+                    <option value="for-her" <%= product.category === 'for-her' ? 'selected' : '' %>>For Her</option>
+                    <option value="for-him" <%= product.category === 'for-him' ? 'selected' : '' %>>For Him</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="price">Price (£) *</label>
+                <input type="number" id="price" name="price" step="0.01" min="0" required value="<%= product.price %>">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="image">Image URL *</label>
+            <input type="url" id="image" name="image" required value="<%= product.image %>">
+            <div class="help-text">Enter the full URL of the product image</div>
+            <div class="current-image">
+                <strong>Current Image:</strong><br>
+                <img src="<%= product.image %>" alt="<%= product.name %>">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <div class="checkbox-group">
+                    <input type="checkbox" id="onSale" name="onSale" value="true" <%= product.onSale ? 'checked' : '' %>>
+                    <label for="onSale" style="margin: 0;">Product is on sale</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="originalPrice">Original Price (£)</label>
+                <input type="number" id="originalPrice" name="originalPrice" step="0.01" min="0" 
+                       value="<%= product.originalPrice || '' %>">
+                <div class="help-text">Only required if product is on sale</div>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-success">
+                <i class="fas fa-save"></i> Update Product
+            </button>
+            <a href="/admin/products" class="btn btn-secondary">
+                <i class="fas fa-times"></i> Cancel
+            </a>
+        </div>
+    </form>
+</div>

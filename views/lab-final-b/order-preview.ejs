@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/checkout.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        :root {
+            --primary-color: rgb(222, 0, 70);
+            --primary-hover: rgb(200, 0, 60);
+            --success-color: #28a745;
+            --text-dark: #2c3e50;
+            --text-light: #6c757d;
+            --bg-light: #f8f9fa;
+            --border-color: #e9ecef;
+            --shadow: 0 2px 10px rgba(0,0,0,0.08);
+            --shadow-hover: 0 4px 20px rgba(0,0,0,0.12);
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .checkout-progress {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .progress-step.active {
+            color: white;
+        }
+
+        .progress-step.active .step-number {
+            background: white;
+            color: var(--primary-color);
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(255,255,255,0.3);
+        }
+
+        .step-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .step-text {
+            font-size: 14px;
+        }
+
+        .progress-connector {
+            width: 60px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.3);
+            margin: 0 10px;
+        }
+
+        .checkout-container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .checkout-section {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .checkout-section:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title i {
+            color: var(--primary-color);
+        }
+
+        /* Cart Items Cards */
+        .cart-items-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .cart-item-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            background: var(--bg-light);
+            border-radius: 12px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .cart-item-card:hover {
+            border-color: var(--primary-color);
+            background: white;
+            transform: translateX(5px);
+            box-shadow: var(--shadow);
+        }
+
+        .item-image-placeholder {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary-color), #ff6b9d);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(222, 0, 70, 0.3);
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .item-meta {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .item-quantity-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: white;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .item-price {
+            font-size: 16px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .item-subtotal {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-color);
+            min-width: 100px;
+            text-align: right;
+        }
+
+        /* Summary Card */
+        .summary-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            padding: 25px;
+            color: white;
+            margin-bottom: 25px;
+        }
+
+        .summary-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            font-size: 15px;
+        }
+
+        .summary-row:last-child {
+            border-bottom: none;
+        }
+
+        .summary-row.total {
+            font-size: 24px;
+            font-weight: 700;
+            padding-top: 20px;
+            margin-top: 10px;
+            border-top: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .discount-badge {
+            background: rgba(40, 167, 69, 0.2);
+            color: #90ee90;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        /* Coupon Section */
+        .coupon-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            color: white;
+        }
+
+        .coupon-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .coupon-input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .coupon-input {
+            flex: 1;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            background: rgba(255,255,255,0.95);
+            color: var(--text-dark);
+        }
+
+        .coupon-input:focus {
+            outline: none;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(255,255,255,0.5);
+        }
+
+        .btn-apply-coupon {
+            padding: 12px 24px;
+            background: white;
+            color: var(--primary-color);
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-apply-coupon:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .coupon-message {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .coupon-message.success {
+            background: rgba(40, 167, 69, 0.2);
+            color: #90ee90;
+        }
+
+        .coupon-message.error {
+            background: rgba(220, 53, 69, 0.2);
+            color: #ffb3ba;
+        }
+
+        /* Email Form */
+        .email-form-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            border: 2px solid var(--border-color);
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-control {
+            padding: 14px 18px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(222, 0, 70, 0.1);
+        }
+
+        /* Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-secondary {
+            background: var(--text-light);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(222, 0, 70, 0.4);
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .empty-cart i {
+            font-size: 80px;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .empty-cart h3 {
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .cart-item-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .item-subtotal {
+                text-align: center;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn-primary {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('../partials/header') %>
+    
+    <!-- Progress Bar -->
+    <div style="max-width: 1000px; margin: 20px auto; padding: 0 20px;">
+        <div class="checkout-progress" style="background: rgb(222, 0, 70); padding: 20px; border-radius: 12px;">
+            <div class="progress-step active">
+                <span class="step-number">1</span>
+                <span class="step-text">Order Preview</span>
+            </div>
+            <div style="width: 60px; height: 2px; background: rgba(255, 255, 255, 0.3); margin: 0 10px;"></div>
+            <div class="progress-step">
+                <span class="step-number">2</span>
+                <span class="step-text">Checkout</span>
+            </div>
+            <div style="width: 60px; height: 2px; background: rgba(255, 255, 255, 0.3); margin: 0 10px;"></div>
+            <div class="progress-step">
+                <span class="step-number">3</span>
+                <span class="step-text">Confirmation</span>
+            </div>
+        </div>
+    </div>
+
+    <main class="checkout-container">
+        <div class="checkout-content">
+            <!-- Order Preview Section -->
+            <section class="checkout-section">
+                <h2 class="section-title">
+                    <i class="fas fa-shopping-bag"></i> Order Summary
+                </h2>
+
+                <% if (cart && cart.length > 0) { %>
+                <!-- Cart Items -->
+                <div class="cart-items-container">
+                    <% cart.forEach((item, index) => { %>
+                    <div class="cart-item-card">
+                        <div class="item-image-placeholder">
+                            <% if (item.image) { %>
+                                <img src="<%= item.image %>" alt="<%= item.name %>" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                            <% } else { %>
+                                <i class="fas fa-box"></i>
+                            <% } %>
+                        </div>
+                        <div class="item-details">
+                            <div class="item-name"><%= item.name %></div>
+                            <div class="item-meta">
+                                <span class="item-quantity-badge">
+                                    <i class="fas fa-layer-group"></i>
+                                    Qty: <%= item.quantity %>
+                                </span>
+                                <span class="item-price">
+                                    <i class="fas fa-dollar-sign"></i> <%= item.price.toFixed(2) %> each
+                                </span>
+                            </div>
+                        </div>
+                        <div class="item-subtotal">
+                            $<%= (item.price * item.quantity).toFixed(2) %>
+                        </div>
+                    </div>
+                    <% }); %>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="summary-card">
+                    <div class="summary-title">
+                        <i class="fas fa-receipt"></i> Order Total
+                    </div>
+                    <% if (couponApplied) { %>
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span>$<%= originalTotal %></span>
+                    </div>
+                    <div class="summary-row">
+                        <span>
+                            Discount (SAVE10 - 10%)
+                            <span class="discount-badge">SAVED!</span>
+                        </span>
+                        <span style="color: #90ee90;">-$<%= discountAmount %></span>
+                    </div>
+                    <% } %>
+                    <div class="summary-row total">
+                        <span>Grand Total</span>
+                        <span>$<%= totalAmount %></span>
+                    </div>
+                </div>
+
+                <!-- Coupon Code Section -->
+                <div class="coupon-card">
+                    <div class="coupon-title">
+                        <i class="fas fa-ticket-alt"></i> Have a Coupon Code?
+                    </div>
+                    <form action="/order/preview" method="GET" class="coupon-input-group">
+                        <input type="text" class="coupon-input" name="coupon"
+                            placeholder="Enter code (e.g., SAVE10)"
+                            value="<%= couponCode || '' %>">
+                        <button type="submit" class="btn-apply-coupon">
+                            <i class="fas fa-check"></i> Apply
+                        </button>
+                    </form>
+                    <% if (couponError) { %>
+                    <div class="coupon-message error">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <%= couponError %>
+                    </div>
+                    <% } %>
+                    <% if (couponApplied) { %>
+                    <div class="coupon-message success">
+                        <i class="fas fa-check-circle"></i>
+                        Coupon applied! You saved $<%= discountAmount %>
+                    </div>
+                    <% } %>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="email-form-card">
+                    <div class="action-buttons">
+                        <a href="/cart" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Go Back to Cart
+                        </a>
+                        <a href="/checkout<%= couponApplied ? '?coupon=' + couponCode : '' %>" class="btn btn-primary">
+                            <i class="fas fa-arrow-right"></i> Proceed to Checkout
+                        </a>
+                    </div>
+                </div>
+                <% } else { %>
+                <div class="empty-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h3>Your cart is empty</h3>
+                    <p class="text-muted">Add some items to your cart to continue</p>
+                    <a href="/" class="btn btn-primary mt-3">
+                        <i class="fas fa-store"></i> Start Shopping
+                    </a>
+                </div>
+                <% } %>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        // Bootstrap form validation
+        (function () {
+            'use strict'
+            var forms = document.querySelectorAll('.needs-validation')
+            Array.prototype.slice.call(forms).forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>
+</body>
+
+</html>
+
